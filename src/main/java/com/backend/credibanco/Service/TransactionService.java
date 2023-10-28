@@ -10,6 +10,7 @@ public interface TransactionService {
    
     public ResponseEntity<String>  performTransaction(Long cardId, Long price);
     public TransactionEntity checkTransaction(Integer transactionId);
+    public TransactionEntity checkTransactions(Integer transactionId);
    
 
 
