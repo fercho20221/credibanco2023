@@ -98,4 +98,10 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
 */
+
+    @Override
+    public TransactionEntity checkTransactions(Integer transactionId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'checkTransactions'");
+    }
 }
