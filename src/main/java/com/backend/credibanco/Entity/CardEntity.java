@@ -29,7 +29,6 @@ import java.util.ArrayList;
 @Setter
 @ToString
 public class CardEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -44,8 +43,7 @@ public class CardEntity {
     private String currency;
     private Long balance;
     
-    @JsonManagedReference  /// Esto es para evitar la referencia circular en Json de las transacciones
+    @JsonManagedReference
     @OneToMany(mappedBy = "cardEntity", cascade = CascadeType.ALL)
     private List<TransactionEntity> transactions;
-
 }

@@ -40,13 +40,26 @@ public class transactionController {
         return response;
     }
 
+    @PostMapping("/transaction/anulation")
+    public ResponseEntity<String> anulateTransaction(@RequestBody TransactionEntity request) {
+        // Llama al servicio para actualizar el balance utilizando el idTransaction
+        ResponseEntity<String> response = transactionService.updateBalance(request.getTransactionId());
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            return ResponseEntity.ok("Balance updated successfully");
+        } else {
+            return ResponseEntity.status(response.getStatusCode()).body("Transaction failed");
+        }
+    }
+
+
+
     @GetMapping("/transaction/{transactionId}")
     public ResponseEntity<TransactionEntity> queryTransaction(@PathVariable Integer transactionId) {
 
         TransactionEntity trans = transactionService.checkTransaction(transactionId);
 
         return new ResponseEntity<>(trans, HttpStatus.OK);
-
     }
 
 }

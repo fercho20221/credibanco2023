@@ -2,7 +2,8 @@ package com.backend.credibanco.ServiceImpl;
 
 import java.util.Random;
 import java.time.LocalDateTime;
-
+import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -78,30 +79,61 @@ public class TransactionServiceImpl implements TransactionService {
         
         return transactionEntity;
     }
-/* 
-    public ResponseEntity<String> updateBalance(Long idTransaction, Long price) {
-        TransactionEntity transaction = transactionRepository.findById(idTransaction);
-
+    
+    public ResponseEntity<String> updateBalance(Integer transactionId) {
+        TransactionEntity transaction = transactionRepository.findBytransactionId(transactionId);
+    
         if (transaction != null) {
-            CardEntity card = transaction.getCardEntity();
-            if (card != null) {
-                card.setBalance(card.getBalance() + price); // Incrementar el saldo
-                cardEntityRepository.save(card);
-
-                return ResponseEntity.ok("Balance updated successfully");
+            // Verifica si el estado de la transacción es "Completed"
+            if ("Completed".equals(transaction.getTransactionState())) {
+                LocalDateTime transactionTime = transaction.getTransactionTime();
+                LocalDateTime currentTime = LocalDateTime.now();
+                long hoursDifference = ChronoUnit.HOURS.between(transactionTime, currentTime);
+                long daysDifference = ChronoUnit.DAYS.between(transactionTime, currentTime);
+    
+                // Verifica si no han pasado más de 24 horas (1 día) desde la transacción
+                if (hoursDifference < 24 && daysDifference == 0) {
+                    CardEntity card = transaction.getCardEntity(); // Obtener la tarjeta asociada a la transacción
+    
+                    if (card != null) {
+                        Long price = transaction.getPrice(); // Obtener el precio de la transacción
+                        card.setBalance(card.getBalance() + price); // Incrementar el saldo
+    
+                        // Cambia el estado de la transacción a "Anulated"
+                        transaction.setTransactionState("Anulated");
+    
+                        // Guarda los cambios en la tarjeta y en la transacción
+                        cardEntityRepository.save(card);
+                        transactionRepository.save(transaction);
+    
+                        return ResponseEntity.ok("Balance updated successfully, and transaction anulated");
+                    } else {
+                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
+                    }
+                } else {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Transaction is older than 24 hours or more than a day");
+                }
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Transaction is not in 'Completed' state");
             }
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Transaction not found");
         }
     }
+    
+    
+    
 
-*/
+    
 
-    @Override
-    public TransactionEntity checkTransactions(Integer transactionId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'checkTransactions'");
-    }
+  
+
+    
+  
+
+    
+
+
+
+
 }

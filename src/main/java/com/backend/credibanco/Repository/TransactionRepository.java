@@ -1,9 +1,7 @@
 package com.backend.credibanco.Repository;
-import org.apache.el.stream.Optional;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.backend.credibanco.Entity.CardEntity;
 import com.backend.credibanco.Entity.TransactionEntity;
 
 
@@ -14,7 +12,7 @@ import com.backend.credibanco.Entity.TransactionEntity;
 public interface TransactionRepository extends JpaRepository<TransactionEntity, Long> {
 
   TransactionEntity findBytransactionId(Integer transactionId);
-  //Optional<TransactionEntity> findById(Long Id);
+ // Optional<TransactionEntity> findById(Integer Id);
    // void deleteBycardId(Long cardId);
 
 }

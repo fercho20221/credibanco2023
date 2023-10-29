@@ -26,7 +26,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Setter
 @ToString
 public class TransactionEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -34,7 +33,6 @@ public class TransactionEntity {
 
     @Column(name = "card_id_transaction")
     private Long cardId;
-
     private Integer transactionId;
     private Long balance;
     private Long price;
@@ -46,4 +44,7 @@ public class TransactionEntity {
     @JoinColumn(name = "card_id", referencedColumnName = "id")
     private CardEntity cardEntity;
 
+    public boolean isPresent() {
+        return false;
+    }
 }

@@ -90,25 +90,26 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public CardEntity balanceCard(Long cardId, Long balance) {
+    public CardEntity balanceCard(CardEntity cardBalance) {
 
-        CardEntity cardBalance = cardRepository.findByCardId(cardId);
+        Long cardId = cardBalance.getCardId();
+        Long balance = cardBalance.getBalance();
 
-        Long currentBalance = cardBalance.getBalance();
+        CardEntity cardBalance1 = cardRepository.findByCardId(cardId);
+
+        Long currentBalance = cardBalance1.getBalance();
 
         Long newBalance = currentBalance + balance;
 
-        cardBalance.setBalance(newBalance);
+        cardBalance1.setBalance(newBalance);
 
-        return cardRepository.saveAndFlush(cardBalance);
+        return cardRepository.saveAndFlush(cardBalance1);
 
     }
 
         
         public CardEntity checkBalanceCard(Long cardId) {
 
-            
-       
         CardEntity cardEntity = cardRepository.findByCardId(cardId);
        
         return cardRepository.saveAndFlush(cardEntity);

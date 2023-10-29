@@ -1,5 +1,6 @@
 package com.backend.credibanco.Service;
 
+import org.hibernate.type.descriptor.jdbc.IntegerJdbcType;
 import org.springframework.http.ResponseEntity;
 
 
@@ -10,7 +11,8 @@ public interface TransactionService {
    
     public ResponseEntity<String>  performTransaction(Long cardId, Long price);
     public TransactionEntity checkTransaction(Integer transactionId);
-    public TransactionEntity checkTransactions(Integer transactionId);
+    public ResponseEntity<String> updateBalance(Integer transactionId);
+    
    
 
 

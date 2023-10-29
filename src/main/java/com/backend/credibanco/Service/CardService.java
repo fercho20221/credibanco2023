@@ -10,7 +10,7 @@ public interface CardService {
 
     public Boolean eliminarCard(Long cardId);
 
-    public CardEntity balanceCard(Long cardId, Long balance);
+    public CardEntity balanceCard(CardEntity cardBalance);
 
     public CardEntity checkBalanceCard(Long cardId);
 

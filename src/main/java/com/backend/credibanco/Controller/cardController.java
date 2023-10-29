@@ -43,11 +43,10 @@ public class cardController {
     }
 
     @PostMapping("/card/balance")
-    private void balanceCard(@RequestBody CardEntity cardBalance) {
-        Long cardId = cardBalance.getCardId();
-        Long balance = cardBalance.getBalance();
+    private CardEntity balanceCard(@RequestBody CardEntity cardBalance) {
+        
 
-        cardService.balanceCard(cardId, balance);
+       return  cardService.balanceCard(cardBalance);
     }
 
     @DeleteMapping("card/{cardId}")
