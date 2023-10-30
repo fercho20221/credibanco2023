@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.backend.credibanco.Entity.CardEntity;
 import com.backend.credibanco.Entity.TransactionEntity;
 import com.backend.credibanco.Service.TransactionService;
 
@@ -42,14 +39,11 @@ public class transactionController {
 
     @PostMapping("/transaction/anulation")
     public ResponseEntity<String> anulateTransaction(@RequestBody TransactionEntity request) {
-        // Llama al servicio para actualizar el balance utilizando el idTransaction
+       
         ResponseEntity<String> response = transactionService.updateBalance(request.getTransactionId());
 
-        if (response.getStatusCode() == HttpStatus.OK) {
-            return ResponseEntity.ok("Balance updated successfully");
-        } else {
-            return ResponseEntity.status(response.getStatusCode()).body("Transaction failed");
-        }
+            return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
+     
     }
 
 

@@ -50,8 +50,8 @@ public class cardController {
     }
 
     @DeleteMapping("card/{cardId}")
-    public Boolean eliminarCard(@PathVariable("cardId") Long cardId) {
-       return  cardService.eliminarCard(cardId);
+    public Boolean deletedCard(@PathVariable("cardId") Long cardId) {
+       return  cardService.deletedCard(cardId);
 
 
 

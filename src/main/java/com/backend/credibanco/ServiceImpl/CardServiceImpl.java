@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.time.format.DateTimeFormatter;
 
@@ -21,6 +22,9 @@ public class CardServiceImpl implements CardService {
     @Autowired
     private CardRepository cardRepository; // Inyeccion de dependencias
 
+  //  public CardServiceImpl(CardRepository cardRepository2) {
+  //  }
+
     @Override
     public CardEntity generarCard(Integer productId) {
 
@@ -33,39 +37,7 @@ public class CardServiceImpl implements CardService {
 
     }
 
-    private Long generarNumeroDeTarjeta(Integer productId) {
-
-        if (productId == null) {
-            throw new IllegalArgumentException("El productId no puede ser nulo");
-        }
-
-        String productIdStr = productId.toString();
-
-        Random random = new Random();
-        StringBuilder numeroTarjeta = new StringBuilder(productIdStr);
-
-        while (numeroTarjeta.length() < 16) {
-            numeroTarjeta.append(random.nextInt(10));
-        }
-
-        Long cardId = Long.parseLong(numeroTarjeta.toString());
-
-        return cardId;
-    }
-
-    @Transactional
-    public Boolean eliminarCard(Long cardId) {
-        
-        try {
-            cardRepository.deleteBycardId(cardId);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-
-    }
-
-    @Override
+     @Override
     public CardEntity enrollCard(CardEntity cardRequest) {
 
         Long cardId = cardRequest.getCardId();
@@ -88,6 +60,40 @@ public class CardServiceImpl implements CardService {
 
         return cardRepository.saveAndFlush(card);
     }
+
+    public Long generarNumeroDeTarjeta(Integer productId) {
+
+        if (productId == null) {
+            throw new IllegalArgumentException("El productId no puede ser nulo");
+        }
+
+        String productIdStr = productId.toString();
+
+        Random random = new Random();
+        StringBuilder numeroTarjeta = new StringBuilder(productIdStr);
+
+        while (numeroTarjeta.length() < 16) {
+            numeroTarjeta.append(random.nextInt(10));
+        }
+
+        Long cardId = Long.parseLong(numeroTarjeta.toString());
+
+        return cardId;
+    }
+
+    @Transactional
+    public Boolean deletedCard(Long cardId) {
+        
+        try {
+            cardRepository.deleteBycardId(cardId);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+
+    }
+
+   
 
     @Override
     public CardEntity balanceCard(CardEntity cardBalance) {
@@ -114,5 +120,13 @@ public class CardServiceImpl implements CardService {
        
         return cardRepository.saveAndFlush(cardEntity);
 }
+
+        public ResponseEntity<String> performTransaction(Long cardId, Long price) {
+            return null;
+        }
+
+        public static Object generateRandomTransactionId() {
+            return null;
+        }
 
 }

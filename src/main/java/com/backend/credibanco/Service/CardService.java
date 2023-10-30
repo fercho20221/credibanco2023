@@ -8,7 +8,7 @@ public interface CardService {
 
     public CardEntity enrollCard(CardEntity cardRequest);
 
-    public Boolean eliminarCard(Long cardId);
+    public Boolean deletedCard(Long cardId);
 
     public CardEntity balanceCard(CardEntity cardBalance);
 
