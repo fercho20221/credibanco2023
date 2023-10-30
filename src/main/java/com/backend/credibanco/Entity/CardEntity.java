@@ -10,8 +10,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -19,7 +17,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import java.util.ArrayList;
 
 @Entity
 @AllArgsConstructor
@@ -42,7 +39,7 @@ public class CardEntity {
     private boolean enroll;
     private String currency;
     private Long balance;
-    
+
     @JsonManagedReference
     @OneToMany(mappedBy = "cardEntity", cascade = CascadeType.ALL)
     private List<TransactionEntity> transactions;

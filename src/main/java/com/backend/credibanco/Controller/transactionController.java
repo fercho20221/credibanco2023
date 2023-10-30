@@ -39,14 +39,12 @@ public class transactionController {
 
     @PostMapping("/transaction/anulation")
     public ResponseEntity<String> anulateTransaction(@RequestBody TransactionEntity request) {
-       
+
         ResponseEntity<String> response = transactionService.updateBalance(request.getTransactionId());
 
-            return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
-     
+        return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
+
     }
-
-
 
     @GetMapping("/transaction/{transactionId}")
     public ResponseEntity<TransactionEntity> queryTransaction(@PathVariable Integer transactionId) {

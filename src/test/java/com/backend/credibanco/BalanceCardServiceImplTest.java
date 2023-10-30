@@ -26,17 +26,16 @@ public class BalanceCardServiceImplTest {
         Long cardId = 3938845015297983L;
         Long balanceToAdd = 220000L;
 
-        // Supongamos que la búsqueda de la tarjeta es exitosa
         CardEntity cardEntity = new CardEntity();
         cardEntity.setCardId(cardId);
-        cardEntity.setBalance(220000L); // Saldo actual
-       
+        cardEntity.setBalance(220000L);
+
         Mockito.when(cardRepository.findByCardId(cardId)).thenReturn(cardEntity);
 
         CardEntity cardBalance1 = cardRepository.findByCardId(cardId);
 
         assertEquals(cardId, cardBalance1.getCardId());
-        assertEquals(220000L, cardBalance1.getBalance()); // Nuevo saldo después de la actualización
+        assertEquals(220000L, cardBalance1.getBalance());
     }
 
     @Test
@@ -44,7 +43,6 @@ public class BalanceCardServiceImplTest {
         Long cardId = 3938845015297983L;
         Long balanceToAdd = 100L;
 
-        // Supongamos que la búsqueda de la tarjeta genera una excepción
         Mockito.when(cardRepository.findByCardId(cardId)).thenThrow(new RuntimeException("Error en la búsqueda"));
 
         CardEntity cardEntity = new CardEntity();
@@ -54,4 +52,3 @@ public class BalanceCardServiceImplTest {
         assertThrows(RuntimeException.class, () -> cardService.balanceCard(cardEntity));
     }
 }
-

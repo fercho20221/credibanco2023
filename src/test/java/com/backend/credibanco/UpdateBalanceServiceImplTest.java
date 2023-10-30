@@ -21,7 +21,6 @@ import com.backend.credibanco.ServiceImpl.TransactionServiceImpl;
 
 import java.time.LocalDateTime;
 
-
 @ExtendWith(MockitoExtension.class)
 public class UpdateBalanceServiceImplTest {
 
@@ -36,36 +35,29 @@ public class UpdateBalanceServiceImplTest {
 
     @BeforeEach
     public void setUp() {
-        // Configura el comportamiento de los mocks si es necesario
+
     }
 
     @Test
     public void testUpdateBalance_SuccessfulUpdate() {
-        // Configura el comportamiento del mock transactionRepository
+
         TransactionEntity transaction = new TransactionEntity();
         transaction.setTransactionId(572235);
         transaction.setTransactionState("Completed");
-        transaction.setTransactionTime(LocalDateTime.now().minusHours(12)); // Dentro de las 24 horas
-
-        
+        transaction.setTransactionTime(LocalDateTime.now().minusHours(12));
 
         Mockito.when(transactionRepository.findBytransactionId(572235)).thenReturn(transaction);
 
-        // Configura el comportamiento del mock cardEntityRepository
         CardEntity card = new CardEntity();
-        card.setBalance(200L); // Saldo actual
-        
-      //  Mockito.when(cardEntityRepository.save(card)).thenReturn(card);
-         Mockito.when(transactionRepository.findBytransactionId(anyInt())).thenReturn(transaction);
-        // Ejecuta el método que deseas probar
+        card.setBalance(200L);
+
+        Mockito.when(transactionRepository.findBytransactionId(anyInt())).thenReturn(transaction);
+
         ResponseEntity<String> response = transactionServiceImpl.updateBalance(572235);
 
-        // Verifica si el resultado es el esperado
         assertEquals("Balance updated successfully, and transaction anulated", response.getBody());
-        assertEquals(200L, card.getBalance()); // Verifica el nuevo saldo
-        assertEquals("Anulated", transaction.getTransactionState()); // Verifica el estado de la transacción
+        assertEquals(200L, card.getBalance());
+        assertEquals("Anulated", transaction.getTransactionState());
     }
 
-    // Agrega más pruebas para diferentes escenarios, como transacción no encontrada, transacción en estado incorrecto, transacción más antigua, etc.
 }
-

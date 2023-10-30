@@ -1,4 +1,5 @@
 package com.backend.credibanco;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,11 +25,10 @@ public class GenerarServiceCardTests {
 
     @Test
     public void testGenerarCard() {
-        Integer productId = 123456; 
+        Integer productId = 123456;
 
-        CardEntity mockCard = new CardEntity(); 
+        CardEntity mockCard = new CardEntity();
 
-       
         when(cardRepository.saveAndFlush(ArgumentMatchers.any(CardEntity.class))).thenReturn(mockCard);
 
         CardEntity generatedCard = cardService.generarCard(productId);

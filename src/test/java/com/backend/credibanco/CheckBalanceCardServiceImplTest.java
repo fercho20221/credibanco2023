@@ -27,7 +27,6 @@ public class CheckBalanceCardServiceImplTest {
     public void testCheckBalanceCard_Exito() {
         Long cardId = 3938845015297983L;
 
-        // Supongamos que la búsqueda de la tarjeta es exitosa
         CardEntity cardEntity = new CardEntity();
         cardEntity.setCardId(cardId);
         Mockito.when(cardRepository.findByCardId(cardId)).thenReturn(cardEntity);
@@ -37,6 +36,5 @@ public class CheckBalanceCardServiceImplTest {
         assertNotNull(checkedCard1);
         assertEquals(cardId, checkedCard1.getCardId());
     }
-
 
 }

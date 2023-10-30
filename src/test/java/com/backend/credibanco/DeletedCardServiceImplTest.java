@@ -22,7 +22,7 @@ public class DeletedCardServiceImplTest {
 
     @Test
     public void testEliminarCard_Exito() {
-        // Supongamos que la eliminación es exitosa
+
         Long cardId = 5343508668973147L;
         Mockito.doNothing().when(cardRepository).deleteBycardId(cardId);
 
@@ -33,7 +33,7 @@ public class DeletedCardServiceImplTest {
 
     @Test
     public void testEliminarCard_Error() {
-        // Supongamos que la eliminación genera una excepción
+
         Long cardId = 12345L;
         Mockito.doThrow(new RuntimeException("Error al eliminar")).when(cardRepository).deleteBycardId(cardId);
 

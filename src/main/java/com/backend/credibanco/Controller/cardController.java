@@ -29,7 +29,7 @@ public class cardController {
 
     @GetMapping("/card/balance/{cardId}")
     public ResponseEntity<CardEntity> queryBalance(@PathVariable Long cardId) {
-        
+
         CardEntity balance = cardService.checkBalanceCard(cardId);
 
         return new ResponseEntity<>(balance, HttpStatus.OK);
@@ -38,22 +38,19 @@ public class cardController {
 
     @PostMapping("/card/enroll")
     private CardEntity enrollCard(@RequestBody CardEntity cardRequest) {
-      
+
         return cardService.enrollCard(cardRequest);
     }
 
     @PostMapping("/card/balance")
     private CardEntity balanceCard(@RequestBody CardEntity cardBalance) {
-        
 
-       return  cardService.balanceCard(cardBalance);
+        return cardService.balanceCard(cardBalance);
     }
 
     @DeleteMapping("card/{cardId}")
     public Boolean deletedCard(@PathVariable("cardId") Long cardId) {
-       return  cardService.deletedCard(cardId);
-
-
+        return cardService.deletedCard(cardId);
 
     }
 

@@ -1,7 +1,5 @@
 package com.backend.credibanco;
 
-
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,8 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBeans;
 
 import com.backend.credibanco.Entity.CardEntity;
 import com.backend.credibanco.Repository.CardRepository;
@@ -33,15 +29,11 @@ public class CardEnrollServiceImplTest {
         cardRequest.setFirstName("Fernando");
         cardRequest.setLastName("Cuervo");
 
- 
         CardEntity mockCard = new CardEntity();
         Mockito.when(cardRepository.findByCardId(3993897660202071L)).thenReturn(mockCard);
         Mockito.when(cardRepository.saveAndFlush(mockCard)).thenReturn(mockCard);
 
-
         CardEntity enrolledCard = cardService.enrollCard(cardRequest);
-
-
 
         assertEquals("Fernando", enrolledCard.getFirstName());
         assertEquals("Cuervo", enrolledCard.getLastName());

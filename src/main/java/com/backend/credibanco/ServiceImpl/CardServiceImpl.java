@@ -2,28 +2,21 @@ package com.backend.credibanco.ServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.Random;
-
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.time.format.DateTimeFormatter;
-
 import com.backend.credibanco.Entity.CardEntity;
 import com.backend.credibanco.Repository.CardRepository;
 import com.backend.credibanco.Service.CardService;
-
 
 import jakarta.transaction.Transactional;
 
 @Service
 public class CardServiceImpl implements CardService {
-   
-    @Autowired
-    private CardRepository cardRepository; // Inyeccion de dependencias
 
-  //  public CardServiceImpl(CardRepository cardRepository2) {
-  //  }
+    @Autowired
+    private CardRepository cardRepository;
 
     @Override
     public CardEntity generarCard(Integer productId) {
@@ -37,14 +30,13 @@ public class CardServiceImpl implements CardService {
 
     }
 
-     @Override
+    @Override
     public CardEntity enrollCard(CardEntity cardRequest) {
 
         Long cardId = cardRequest.getCardId();
         String firstName = cardRequest.getFirstName();
         String lastName = cardRequest.getLastName();
         CardEntity card = cardRepository.findByCardId(cardId);
-
 
         LocalDateTime expirationDate = LocalDateTime.now().plusYears(3);
 
@@ -83,7 +75,7 @@ public class CardServiceImpl implements CardService {
 
     @Transactional
     public Boolean deletedCard(Long cardId) {
-        
+
         try {
             cardRepository.deleteBycardId(cardId);
         } catch (Exception e) {
@@ -92,8 +84,6 @@ public class CardServiceImpl implements CardService {
         return true;
 
     }
-
-   
 
     @Override
     public CardEntity balanceCard(CardEntity cardBalance) {
@@ -113,20 +103,19 @@ public class CardServiceImpl implements CardService {
 
     }
 
-        
-        public CardEntity checkBalanceCard(Long cardId) {
+    public CardEntity checkBalanceCard(Long cardId) {
 
         CardEntity cardEntity = cardRepository.findByCardId(cardId);
-       
+
         return cardRepository.saveAndFlush(cardEntity);
-}
+    }
 
-        public ResponseEntity<String> performTransaction(Long cardId, Long price) {
-            return null;
-        }
+    public ResponseEntity<String> performTransaction(Long cardId, Long price) {
+        return null;
+    }
 
-        public static Object generateRandomTransactionId() {
-            return null;
-        }
+    public static Object generateRandomTransactionId() {
+        return null;
+    }
 
 }

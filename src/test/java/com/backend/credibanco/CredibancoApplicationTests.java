@@ -10,6 +10,4 @@ class CredibancoApplicationTests {
 	void contextLoads() {
 	}
 
-	
-
 }
