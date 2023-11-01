@@ -43,7 +43,7 @@ public class TransactionEntity {
     @JoinColumn(name = "card_id", referencedColumnName = "id")
     private CardEntity cardEntity;
 
-    public boolean isPresent() {
-        return false;
-    }
+   // public boolean isPresent() {
+    //    return false;
+//    }
 }
